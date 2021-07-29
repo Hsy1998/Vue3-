@@ -14,7 +14,7 @@ export default {
     provide('menuVisible', menuVisible) // set
     router.afterEach(() => {
       if (width <= 500) {
-        menuVisible.value = false
+        menuVisible.value = false // 在手机端切换路由时隐藏侧边栏
       }
     })
   },
