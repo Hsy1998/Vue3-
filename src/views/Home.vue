@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div class="topnav">
-      <div class="logo"></div>
-      <div class="menu"></div>
-    </div>
+    <Topnav />
     <div class="banner">
       <h1>Vue3造轮子</h1>
       <h2>一个厉害的 UI 框架</h2>
@@ -15,8 +12,11 @@
   </div>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import Topnav from '../components/Topnav.vue'
+export default {
+  components: { Topnav },
+}
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>

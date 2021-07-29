@@ -1,9 +1,18 @@
 <template>
-  <div>Doc页面</div>
+  <div>
+    <Topnav />
+    <div class="content">
+      <aside>边栏</aside>
+      <main>内容</main>
+    </div>
+  </div>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import Topnav from '../components/Topnav.vue'
+export default {
+  components: { Topnav },
+}
 </script>
 
 <style></style>
