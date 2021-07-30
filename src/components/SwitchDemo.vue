@@ -1,9 +1,12 @@
 <template>
-  <div>Switch 的文档</div>
+  <Switch />
 </template>
 
 <script>
-export default {}
+import Switch from '../lib/Switch.vue'
+export default {
+  components: { Switch },
+}
 </script>
 
 <style></style>
