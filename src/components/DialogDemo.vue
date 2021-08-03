@@ -11,13 +11,18 @@
       </template>
       <template v-slot:content><div>左右</div> </template>
     </Dialog>
+    <div>
+      <h2>示例2</h2>
+      <Button @click="showDialog">openDialog</Button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Dialog from '../lib/Dialog.vue'
 import Button from '../lib/Button.vue'
-import { ref } from 'vue'
+import { ref, h } from 'vue'
+import { openDialog } from '../lib/openDialog'
 export default {
   components: { Dialog, Button },
   setup() {
@@ -28,10 +33,24 @@ export default {
     const confirm = () => {
       return false
     }
+    const showDialog = () => {
+      openDialog({
+        title: h('strong', {}, '标题'),
+        content: '你好',
+        ok() {
+          console.log('ok')
+        },
+        cancel() {
+          console.log('cancel')
+        },
+        closeOnClickOverlay: false,
+      })
+    }
     return {
       visible,
       toggle,
       confirm,
+      showDialog,
     }
   },
 }
