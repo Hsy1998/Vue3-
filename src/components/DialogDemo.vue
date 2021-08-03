@@ -7,9 +7,9 @@
     <Button @click="toggle">toggle</Button>
     <Dialog v-model:visible="visible" :ok="confirm">
       <template v-slot:title>
-        <strong>大傻逼</strong>
+        <strong>标题</strong>
       </template>
-      <template v-slot:content><div>左右</div> </template>
+      <template v-slot:content><div>你好</div> </template>
     </Dialog>
     <div>
       <h2>示例2</h2>
