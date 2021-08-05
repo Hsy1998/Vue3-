@@ -7,7 +7,7 @@
         @click="select(title)"
         :ref="
           (el) => {
-            if (el) navItems[index] = el
+            if (title === selected) selectedItem = el
           }
         "
         v-for="(title, index) in titles"
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { computed, ref, onMounted, onUpdated } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import Tab from './Tab.vue'
 export default {
   props: {
@@ -40,22 +40,19 @@ export default {
     },
   },
   setup(props, context) {
-    const defaults = context.slots.default()
-    const navItems = ref<HTMLDivElement>([])
-    const indicator = ref<HTMLDivElement>(null)
-    const container = ref<HTMLDivElement>(null)
-    const x = () => {
-      const divs = navItems.value
-      const result = divs.filter((div) => div.classList.contains('selected'))[0]
-      const { width } = result.getBoundingClientRect()
+    const defaults = context.slots.default() // 传入的Tab组件
+    const selectedItem = ref<HTMLDivElement>(null) // 选中的title
+    const indicator = ref<HTMLDivElement>(null) // 移动的下划线
+    const container = ref<HTMLDivElement>(null) // 整个tabs-nav
+
+    watchEffect(() => {
+      const { width } = selectedItem.value.getBoundingClientRect()
       const { left: left1 } = container.value.getBoundingClientRect()
-      const { left: left2 } = result.getBoundingClientRect()
+      const { left: left2 } = selectedItem.value.getBoundingClientRect()
       const left = left2 - left1 + 'px'
       indicator.value.style.width = width + 'px'
       indicator.value.style.left = left
-    }
-    onMounted(x)
-    onUpdated(x)
+    })
     defaults.forEach((tag) => {
       if (tag.type !== Tab) {
         throw new Error('Tabs 子标签必须为 Tab')
@@ -72,7 +69,8 @@ export default {
       defaults,
       titles,
       select,
-      navItems,
+
+      selectedItem,
       indicator,
       container,
     }
