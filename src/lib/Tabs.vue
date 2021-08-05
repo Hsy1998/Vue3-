@@ -19,19 +19,13 @@
     </div>
 
     <div class="zeus-tabs-content">
-      <component
-        class="zeus-tabs-content-item"
-        :class="{ selected: c.props.title === selected }"
-        v-for="(c, index) in defaults"
-        :key="index"
-        :is="c"
-      ></component>
+      <component :key="current.props.title" :is="current"></component>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, ref, watchEffect } from 'vue'
+import { computed, onMounted, onUpdated, ref, watchEffect } from 'vue'
 import Tab from './Tab.vue'
 export default {
   props: {
@@ -45,13 +39,19 @@ export default {
     const indicator = ref<HTMLDivElement>(null) // 移动的下划线
     const container = ref<HTMLDivElement>(null) // 整个tabs-nav
 
-    watchEffect(() => {
-      const { width } = selectedItem.value.getBoundingClientRect()
-      const { left: left1 } = container.value.getBoundingClientRect()
-      const { left: left2 } = selectedItem.value.getBoundingClientRect()
-      const left = left2 - left1 + 'px'
-      indicator.value.style.width = width + 'px'
-      indicator.value.style.left = left
+    onMounted(() => {
+      watchEffect(() => {
+        // watchEffect会在挂载前执行，所以拿不到DOM，将watchEffect放在onMounted里执行
+        const { width } = selectedItem.value.getBoundingClientRect() // getBoundingClientRect能获取element的宽、高、左、右
+        const { left: left1 } = container.value.getBoundingClientRect()
+        const { left: left2 } = selectedItem.value.getBoundingClientRect()
+        const left = left2 - left1 + 'px'
+        indicator.value.style.width = width + 'px'
+        indicator.value.style.left = left // 点击之后下标的滑动距离
+      })
+    })
+    const current = computed(() => {
+      return defaults.find((tag) => tag.props.title === props.selected)
     })
     defaults.forEach((tag) => {
       if (tag.type !== Tab) {
@@ -69,7 +69,7 @@ export default {
       defaults,
       titles,
       select,
-
+      current,
       selectedItem,
       indicator,
       container,
@@ -111,12 +111,6 @@ $border-color: #d9d9d9;
   }
   &-content {
     padding: 8px 0;
-    &-item {
-      display: none;
-      &.selected {
-        display: block;
-      }
-    }
   }
 }
 </style>
