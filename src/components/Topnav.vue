@@ -1,11 +1,22 @@
 <template>
   <div class="topnav">
-    <div class="logo">LOGO</div>
+    <router-link to="/" class="logo">
+      <svg class="icon">
+        <use xlink:href="#icon-zeus"></use>
+      </svg>
+    </router-link>
     <ul class="menu">
-      <li>菜单1</li>
-      <li>菜单2</li>
+      <router-link to="/doc">文档</router-link>
     </ul>
-    <span class="toggleAside" @click="toggleMenu"></span>
+    <span
+      v-if="toggleMenuButtonVisible"
+      class="toggleAside"
+      @click="toggleMenu"
+    >
+      <svg class="icon">
+        <use xlink:href="#icon-menu"></use>
+      </svg>
+    </span>
   </div>
 </template>
 <script lang="ts">
@@ -17,6 +28,12 @@ export default {
       menuVisible.value = !menuVisible.value
     }
     return { toggleMenu }
+  },
+  props: {
+    toggleMenuButtonVisible: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 </script>
@@ -36,6 +53,10 @@ $color: #007974;
   > .logo {
     max-width: 6em;
     margin-right: auto;
+    > svg {
+      width: 32px;
+      height: 32px;
+    }
   }
   > .menu {
     display: flex;
@@ -49,12 +70,15 @@ $color: #007974;
     display: inline-block;
     width: 24px;
     height: 24px;
-    background: red;
     position: absolute;
     left: 16px;
     top: 50%;
     transform: translateY(-50%);
     display: none;
+    > svg {
+      width: 22px;
+      height: 22px;
+    }
   }
   @media (max-width: 500px) {
     .menu {
