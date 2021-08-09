@@ -12,7 +12,7 @@
             <router-link to="/doc/install">安裝</router-link>
           </li>
           <li>
-            <router-link to="/doc/get-started">开始</router-link>
+            <router-link to="/doc/get-started">开始使用</router-link>
           </li>
         </ol>
         <h2>组件列表</h2>
