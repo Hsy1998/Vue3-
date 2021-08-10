@@ -31,7 +31,7 @@
           </li>
         </ol>
       </aside>
-      <main>
+      <main @click="toggleMenu">
         <router-view />
       </main>
     </div>
@@ -44,7 +44,13 @@ export default {
   components: { Topnav },
   setup() {
     const menuVisible = inject<Ref<boolean>>('menuVisible') // get
-    return { menuVisible }
+    const width = document.documentElement.clientWidth
+    const toggleMenu = () => {
+      if (width < 500) {
+        menuVisible.value = false
+      }
+    }
+    return { menuVisible, toggleMenu }
   },
 }
 </script>
@@ -80,6 +86,7 @@ aside {
   background: lightblue;
   width: 150px;
   position: fixed;
+  z-index: 7;
   top: 0;
   left: 0;
   padding-top: 70px;

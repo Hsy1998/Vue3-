@@ -50,6 +50,7 @@ $color: #007974;
   z-index: 10;
   justify-content: center;
   align-items: center;
+
   > .logo {
     max-width: 6em;
     margin-right: auto;

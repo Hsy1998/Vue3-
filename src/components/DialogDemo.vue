@@ -1,59 +1,22 @@
 <template>
-  <div>
-    <h1>Dialog 示例</h1>
-    <br />
-    <hr />
-    <h2>示例1</h2>
-    <Button @click="toggle">toggle</Button>
-    <Dialog v-model:visible="visible" :ok="confirm">
-      <template v-slot:title>
-        <strong>标题</strong>
-      </template>
-      <template v-slot:content><div>你好</div> </template>
-    </Dialog>
-    <div>
-      <h2>示例2</h2>
-      <Button @click="showDialog">openDialog</Button>
-    </div>
-  </div>
+  <h1>Dialog 示例</h1>
+  <Demo :component="Dialog1Demo" />
+  <Demo :component="Dialog2Demo" />
 </template>
 
 <script lang="ts">
-import Dialog from '../lib/Dialog.vue'
-import Button from '../lib/Button.vue'
-import { ref, h } from 'vue'
-import { openDialog } from '../lib/openDialog'
+import Demo from './Demo/index.vue'
+import Dialog1Demo from './Demo/Dialog1.demo.vue'
+import Dialog2Demo from './Demo/Dialog2.demo.vue'
 export default {
-  components: { Dialog, Button },
+  components: {
+    Demo,
+  },
   setup() {
-    const visible = ref(false)
-    const toggle = () => {
-      visible.value = !visible.value
-    }
-    const confirm = () => {
-      return false
-    }
-    const showDialog = () => {
-      openDialog({
-        title: h('strong', {}, '标题'),
-        content: '你好',
-        ok() {
-          console.log('ok')
-        },
-        cancel() {
-          console.log('cancel')
-        },
-        closeOnClickOverlay: false,
-      })
-    }
     return {
-      visible,
-      toggle,
-      confirm,
-      showDialog,
+      Dialog1Demo,
+      Dialog2Demo,
     }
   },
 }
 </script>
-
-<style></style>
