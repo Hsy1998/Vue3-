@@ -63,7 +63,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'prismjs/themes/prism.css';
 $border-color: #d9d9d9;
 .demo {
   border: 1px solid $border-color;
@@ -90,4 +89,7 @@ $border-color: #d9d9d9;
     }
   }
 }
+</style>
+<style lang="scss">
+@import 'prismjs/themes/prism.css';
 </style>
