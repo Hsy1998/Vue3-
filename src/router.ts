@@ -6,11 +6,13 @@ import DialogDemo from './components/DialogDemo.vue'
 import TabsDemo from './components/TabsDemo.vue'
 import './index.scss'
 import { createWebHashHistory, createRouter } from 'vue-router'
+import Instro from './markdown/intro.md'
+import Install from './markdown/install.md'
+import GetStarted from './markdown/getStarted.md'
 import Markdown from './components/Markdown.vue'
 import { h } from 'vue'
 
-const md = (fileName) =>
-  h(Markdown, { path: `../markdown/${fileName}.md`, key: fileName })
+const md = (string) => h(Markdown, { content: string, key: String })
 const history = createWebHashHistory()
 export const router = createRouter({
   history: history,
@@ -23,15 +25,15 @@ export const router = createRouter({
         { path: '', redirect: '/doc/intro' },
         {
           path: 'intro',
-          component: md('intro'),
+          component: md(Instro),
         },
         {
           path: 'install',
-          component: md('install'),
+          component: md(Install),
         },
         {
           path: 'get-started',
-          component: md('getStarted'),
+          component: md(GetStarted),
         },
         { path: 'switch', component: SwitchDemo },
         { path: 'button', component: ButtonDemo },

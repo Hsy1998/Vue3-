@@ -1,8 +1,11 @@
+// @ts-nocheck
 import { md } from './plugins/md' // 支持Markdown文件
 import fs from 'fs'
 import { baseParse } from '@vue/compiler-core' // 展示源代码
 
 export default {
+  base: './',
+  assetsDir: 'assets',
   plugins: [md()],
   vueCustomBlockTransforms: {
     demo: (options) => {
