@@ -23,6 +23,7 @@
       </div>
       <div class="demo-code">
         <pre
+          class="language-html"
           v-html="
             Prism.highlight(
               SwitchDemo2.__sourceCode,
@@ -42,7 +43,7 @@ import SwitchDemo2 from '../components/SwitchDemo2.vue'
 import { ref } from 'vue'
 import Button from '../lib/Button.vue'
 import 'prismjs'
-import 'prismjs/themes/prism.css'
+// import 'prismjs/themes/prism.css'
 const Prism = (window as any).Prism
 
 console.log(Prism)
@@ -62,6 +63,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'prismjs/themes/prism.css';
 $border-color: #d9d9d9;
 .demo {
   border: 1px solid $border-color;
